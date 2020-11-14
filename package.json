@@ -18,10 +18,14 @@
 	},
 	"homepage": "https://github.com/Lucassev05/cubos-academy-api#readme",
 	"dependencies": {
+		"@koa/cors": "^3.1.0",
+		"bcrypt": "^5.0.0",
 		"dotenv": "^8.2.0",
+		"jsonwebtoken": "^8.5.1",
 		"koa": "^2.13.0",
 		"koa-bodyparser": "^4.3.0",
-		"koa-router": "^9.4.0"
+		"koa-router": "^9.4.0",
+		"pg": "^8.5.1"
 	},
 	"devDependencies": {
 		"eslint": "^7.10.0",
@@ -29,6 +33,7 @@
 		"eslint-config-prettier": "^6.12.0",
 		"eslint-plugin-import": "^2.22.1",
 		"eslint-plugin-prettier": "^3.1.4",
+		"nodemon": "^2.0.6",
 		"prettier": "^2.1.2"
 	}
 }
