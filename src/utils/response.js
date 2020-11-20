@@ -8,4 +8,4 @@ const response = (ctx, codigo, dados) => {
 	};
 };
 
-module.exports = { response };
+module.exports = response;
