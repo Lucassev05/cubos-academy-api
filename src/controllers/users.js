@@ -1,16 +1,11 @@
 const Users = require('../repositories/users');
 const response = require('../utils/response');
-const Password = require('../utils/password');
 
 const createUser = async (ctx) => {
-	const {
-		firstName = null,
-		lastName = null,
-		email = null,
-	} = ctx.request.body;
+	const { nome = null, email = null } = ctx.request.body;
 	const { hash = null } = ctx.state;
 
-	if (!firstName || !lastName || !email) {
+	if (!nome || !email) {
 		return response(ctx, 400, { message: 'Pedido mal formatado' });
 	}
 
@@ -21,8 +16,7 @@ const createUser = async (ctx) => {
 	}
 
 	const user = {
-		firstName,
-		lastName,
+		name: nome,
 		email,
 		password: hash,
 	};

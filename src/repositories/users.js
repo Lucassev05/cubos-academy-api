@@ -3,9 +3,9 @@ const db = require('../utils/database');
 const createUser = async (obj) => {
 	const query = {
 		text: `INSERT INTO users
-		(first_name,last_name,email,password)
-		VALUES($1,$2,$3,$4) RETURNING id`,
-		values: [obj.firstName, obj.lastName, obj.email, obj.password],
+		(name,email,password)
+		VALUES($1,$2,$3) RETURNING id`,
+		values: [obj.name, obj.email, obj.password],
 	};
 
 	const result = await db.query(query);
