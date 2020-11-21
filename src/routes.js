@@ -3,6 +3,7 @@ const Router = require('koa-router');
 const Users = require('./controllers/users');
 const Auth = require('./controllers/auth');
 const Password = require('./middlewares/encrypt');
+const Session = require('./middlewares/session');
 
 const router = new Router();
 
