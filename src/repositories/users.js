@@ -5,7 +5,7 @@ const createUser = async (obj) => {
 		text: `INSERT INTO users
 		(first_name,last_name,email,password)
 		VALUES($1,$2,$3,$4) RETURNING id`,
-		values: [obj.first_name, obj.last_name, obj.email, obj.password],
+		values: [obj.firstName, obj.lastName, obj.email, obj.password],
 	};
 
 	const result = await db.query(query);
