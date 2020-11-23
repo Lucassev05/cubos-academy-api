@@ -13,6 +13,16 @@ const createClient = async (obj) => {
 	return result.rows.shift();
 };
 
+const editClient = async (obj) => {
+	const query = `UPDATE clients
+		SET cpf='${obj.cpf}', email='${obj.email}', tel='${obj.tel}', name='${obj.name}'
+		WHERE id = ${obj.id}
+		RETURNING id, cpf, email, tel,name`;
+
+	const result = await db.query(query);
+	return result.rows.shift();
+};
+
 const getClient = async (obj) => {
 	const query = `SELECT * FROM clients
 		WHERE user_id = ${obj.userId} 
@@ -22,4 +32,26 @@ const getClient = async (obj) => {
 	return result.rows.shift();
 };
 
-module.exports = { createClient, getClient };
+const getClientByID = async (id) => {
+	const query = `SELECT * FROM clients
+		WHERE id = ${id}`;
+
+	const result = await db.query(query);
+	return result.rows.shift();
+};
+
+const getClients = async (userId) => {
+	const query = `SELECT id,name,cpf,email,tel FROM clients
+		WHERE user_id = ${userId}`;
+
+	const result = await db.query(query);
+	return result.rows;
+};
+
+module.exports = {
+	createClient,
+	editClient,
+	getClients,
+	getClient,
+	getClientByID,
+};
