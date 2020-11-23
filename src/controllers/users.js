@@ -10,23 +10,23 @@ const createUser = async (ctx) => {
 		return response(ctx, 400, { mensagem: 'Pedido mal formatado' });
 	}
 
-	const validEmail = Validator.email(email);
+	const user = {
+		name: nome.trim(),
+		email: email.trim().toLowerCase(),
+		password: hash,
+	};
+
+	const validEmail = Validator.email(user.email);
 
 	if (!validEmail) {
 		return response(ctx, 400, { mensagem: 'Email inválido' });
 	}
 
-	const existence = await Users.getUser(email);
+	const existence = await Users.getUser(user.email);
 
 	if (existence) {
 		return response(ctx, 400, { mensagem: 'Usuário já cadastrado' });
 	}
-
-	const user = {
-		name: nome,
-		email,
-		password: hash,
-	};
 
 	const result = await Users.createUser(user);
 	return response(ctx, 201, result);
