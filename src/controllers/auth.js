@@ -11,10 +11,15 @@ const authenticate = async (ctx) => {
 		return response(ctx, 400, { mensagem: 'Pedido mal formatado' });
 	}
 
-	const user = await Users.getUser(email);
+	const data = {
+		email: email.trim().toLowerCase(),
+		senha,
+	};
+
+	const user = await Users.getUser(data.email);
 
 	if (user) {
-		const comparison = await Password.check(senha, user.password);
+		const comparison = await Password.check(data.senha, user.password);
 		if (comparison) {
 			const token = jwt.sign(
 				{ id: user.id, email: user.email },
