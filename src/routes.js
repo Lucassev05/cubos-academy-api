@@ -13,6 +13,9 @@ const router = new Router();
  */
 router.post('/auth', Auth.authenticate);
 router.post('/usuarios', Password.encrypt, Users.createUser);
-router.post('/clientes', Session.verify, Client.createClient);
+router
+	.post('/clientes', Session.verify, Client.createClient)
+	.put('/clientes', Session.verify, Client.editClient)
+	.get('/clientes', Session.verify, Client.getClients);
 
 module.exports = router;

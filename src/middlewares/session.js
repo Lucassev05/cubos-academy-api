@@ -5,7 +5,8 @@ require('dotenv').config();
 const verify = async (ctx, next) => {
 	if (!ctx.headers.authorization) {
 		return response(ctx, 401, {
-			message: 'Pedido mal formatado',
+			message:
+				'É necessário estar altenticado para realizar esta operação',
 		});
 	}
 
@@ -17,9 +18,8 @@ const verify = async (ctx, next) => {
 		ctx.state.userId = verification.id;
 		ctx.state.email = verification.email;
 	} catch (error) {
-		console.log(error);
 		return response(ctx, 403, {
-			message: 'Ocorreu um erro, por favor, tente novamente',
+			message: 'Ocorreu um erro. Por favor, tente novamente',
 		});
 	}
 	return next();
