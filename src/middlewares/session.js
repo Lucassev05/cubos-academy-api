@@ -18,7 +18,6 @@ const verify = async (ctx, next) => {
 		ctx.state.userId = verification.id;
 		ctx.state.email = verification.email;
 	} catch (error) {
-		console.log(error);
 		return response(ctx, 403, {
 			message: 'Ocorreu um erro. Por favor, tente novamente',
 		});
