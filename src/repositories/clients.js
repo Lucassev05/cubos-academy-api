@@ -40,9 +40,22 @@ const getClientByID = async (id) => {
 	return result.rows.shift();
 };
 
-const getClients = async (userId) => {
+const getClientsList = async (obj) => {
 	const query = `SELECT id,name,cpf,email,tel FROM clients
-		WHERE user_id = ${userId}`;
+		WHERE user_id = ${obj.userId}
+		LIMIT ${obj.limit}
+		OFFSET ${obj.offset}`;
+
+	const result = await db.query(query);
+	return result.rows;
+};
+
+const getClientsSearch = async (obj) => {
+	const query = `SELECT id,name,cpf,email,tel FROM clients
+	WHERE user_id = ${obj.userId}
+	AND (name LIKE '%${obj.busca}%' OR email LIKE '%${obj.busca}%' OR cpf LIKE '%${obj.busca}%')
+	LIMIT ${obj.limit}
+	OFFSET ${obj.offset}`;
 
 	const result = await db.query(query);
 	return result.rows;
@@ -51,7 +64,8 @@ const getClients = async (userId) => {
 module.exports = {
 	createClient,
 	editClient,
-	getClients,
+	getClientsList,
+	getClientsSearch,
 	getClient,
 	getClientByID,
 };

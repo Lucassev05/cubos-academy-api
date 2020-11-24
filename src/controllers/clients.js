@@ -18,7 +18,7 @@ const createClient = async (ctx) => {
 	}
 
 	const client = {
-		name: nome.trim(),
+		name: nome.toLowerCase().trim(),
 		cpf: Formatter.stringCleaner(cpf).trim(),
 		email: email.toLowerCase().trim(),
 		tel: Formatter.stringCleaner(tel).trim(),
@@ -96,18 +96,32 @@ const editClient = async (ctx) => {
 	}
 
 	const result = await Clients.editClient(client);
-	return response(ctx, 201, result);
+	return response(ctx, 200, result);
 };
 
 const getClients = async (ctx) => {
 	const { userId = null } = ctx.state;
+	const { busca = null, clientesPorPagina = null, offset = null } = ctx.query;
 
-	if (!userId) {
+	if (!userId || !clientesPorPagina || !offset) {
 		return response(ctx, 400, { mensagem: 'Pedido mal formatado' });
 	}
 
-	const result = await Clients.getClients(userId);
-	return response(ctx, 201, result);
+	const filtros = {
+		userId,
+		limit: clientesPorPagina.trim(),
+		offset: offset.trim(),
+	};
+
+	if (!busca) {
+		const result = await Clients.getClientsList(filtros);
+		return response(ctx, 200, result);
+	}
+
+	filtros.busca = busca.trim().toLowerCase();
+
+	const result = await Clients.getClientsSearch(filtros);
+	return response(ctx, 200, result);
 };
 
 module.exports = { createClient, editClient, getClients };
