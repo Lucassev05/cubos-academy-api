@@ -5,6 +5,7 @@ const Auth = require('./controllers/auth');
 const Password = require('./middlewares/encrypt');
 const Session = require('./middlewares/session');
 const Client = require('./controllers/clients');
+const Charges = require('./controllers/charges');
 
 const router = new Router();
 
@@ -17,5 +18,5 @@ router
 	.post('/clientes', Session.verify, Client.createClient)
 	.put('/clientes', Session.verify, Client.editClient)
 	.get('/clientes', Session.verify, Client.getClients);
-
+router.post('/cobrancas', Session.verify, Charges.createCharge);
 module.exports = router;

@@ -24,7 +24,8 @@ create table if not exists charges (
 	amount numeric not NULL,
 	expiration_date TIMESTAMP,
 	link text,
-	status text not NULL)`;
+	status text not NULL,
+	tid text not NULL)`;
 
 (async () => {
 	try {
@@ -32,7 +33,7 @@ create table if not exists charges (
 		await db.query(usersQuery);
 		await db.query(chargesQuery);
 
-		console.log('Created!');
+		console.log('created');
 	} catch (error) {
 		console.log(error);
 	}
