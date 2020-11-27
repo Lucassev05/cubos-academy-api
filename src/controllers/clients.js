@@ -115,7 +115,7 @@ const getClients = async (ctx) => {
 
 	if (!busca) {
 		const result = await Clients.getClientsList(filtros);
-		return response(ctx, 200, result);
+		return response(ctx, 200, { clientes: result });
 	}
 
 	filtros.busca = busca.trim().toLowerCase();
